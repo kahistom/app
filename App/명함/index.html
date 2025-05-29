@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>명함 생성기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<ㅇ>
+    <div class="form-container">
+        <label>이름: <input type="text" id="nameInput"></label>
+        <label>직책: <input type="text" id="jobInput"></label>
+        <label>연락처: <input type="text" id="phoneInput"></label>
+        <label>회사명: <input type="text" id="comepanyInput"></label>
+
+        <label>명함 스타일 선택:</label>
+        <section id="styleselect" onchange="changeStyle()">
+            <option value="style1">클래식</option>
+            <option value="style2">모던</option>
+            <option value="style3">컬러풀</option>
+        </section>
+
+        <button onclick="generateCard()">명함 생성</button>
+    </div>
+    <h2>미리보기</h2>
+    <div class="card style1" id="businessCard">
+        <h2 id="cardName">이름</h2>
+        <p id="cardJob">회사명</p>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

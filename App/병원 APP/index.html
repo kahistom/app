@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>병원 앱</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="login-container" id="loginPage">
+        <h2>로그인</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="아이디" required>
+            <input type="password" id="password" placeholder="비밀번호" required>
+            <button type="submit">로그인</button>
+        </form>
+        <p>계정이 없으신가요? <a href="#" id="showRegister">회원가입</a></p>
+    </div>
+
+    <div class="register-container" id="registerPage" style="display: none;">
+        <h2>회원가입</h2>
+        <form id="registerForm">
+            <input type="text" id="newUsername" placeholder="아이디" required>
+            <input type="password" id="newPassword" placeholder="비밀번호" required>
+            <button type="submit">가입하기</button>
+        </form>
+        <p>이미 계정이 있으신가요? <a href="#" id="showLogin">로그인</a></p>
+    </div>
+
+    <div class="container" id="mainApp" style="display: none;">
+        <nav class="sidebar">
+            <h2>병원 앱</h2>
+            <ul>
+                <li><a href="#home">홈</a></li>
+                <li><a href="#appointment">예약</a></li>
+                <li><a href="#records">진료 기록</a></li>
+                <li><a href="#chat">상담담</a></li>
+                <li><a href="#health">건강 정보</a></li>
+                <li><a href="#medication">약물 알림</a></li>
+                <li><a href="#logout" id="logoutButton">로그아웃</a></li>
+            </ul>
+        </nav>
+        <header class="topbar">
+            <div class="user-info">
+                <img src="user-avatar.png" alt="사용자 아바타">
+                <span id="userDisplay">홍길동</span>
+            </div>
+            <div class="notifications">
+                <span>🔔 알림 (3)</span>
+            </div>
+        </header>
+        <main class="content">
+            <section id="home">
+                <h1>병원 앱 홈</h1>
+                <p>환영합니다! 원하는 서비스를 선택하세요.</p>
+            </section>
+
+            <section id="appointment">
+                <h2>예약 시스템</h2>
+                <input type="text" id="appointmentInput" placeholder="진료 예약 입력">
+                <button onclick="addAppointment()">예약 추가</button>
+                <ul id="appointmentList"></ul>
+            </section>
+
+            <section id="records">
+                <h2>진료 기록</h2>
+                <ul id="recordList">
+                    <li>2025년 2월 5일 - 혈액 검사</li>
+                </ul>
+            </section>
+
+            <section id="chat">
+                <h2>의사와 상담</h2>
+                <div id="chatBOX"></div>
+                <input type="text" id="chatInput" placeholder="메세지 입력">
+                <button onclick="sendMessage()">전송</button>
+            </section>
+
+            <section id="health">
+                <h2>건강 정보</h2>
+                <p>최신 건강 뉴스 및 정보를 제공합니다.</p>
+            </section>
+
+            <section id="medication">
+                <h2>약물 복용 알림</h2>
+                <input type="text" id="medicationInput" placeholder="약물 입력">
+                <button onclick="addMedication()">추가</button>
+                <ul id="medicationList"></ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function addAppointment() {
+            let input = document.getElementById("appointmentInput").value;
+            if (input) {
+                let div = document.createElement("div");
+                div.textContent = "사용자: " + input;
+                document.getElementById("chatBox").appendChild(div);
+            }
+        }
+
+        function addMedication() {
+            let input = document.getElementById("medicationInput").value;
+            if (input) {
+                let li = document.getElementById("medicationInput").value;
+                if (input) {
+                    let li = document.createElement("li");
+                    li.textContent = input;
+                    document.getElementById("medicationList").appendChild(li);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

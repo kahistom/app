@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운동 기록 앱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Healthy Document</h1>
+
+        <!--운동 기록 입력 픔-->
+        <form id="workout-form">
+            <label for="exrcise-name">운동 이름:</label>
+            <input type="text" id="exrcise-name" placeholder="운동 이름을 입력하세요">
+
+            <label for="sets">세트 수:</label>
+            <input type="number" id="sets" placeholder="세트 수를 입력하세요">
+
+            <label for="reps">반복 횟수:</label>
+            <input type="number" id="reps" placeholder="반복 횟수를 입력하세요">
+
+            <label for="time">시간 (분):</label>
+            <input type="number" id="time" placeholder="운동 시간을 입력하세요">
+
+            <button type="submit">기록 추가</button>
+        </form>
+
+        <!-- 운동 기록 테이블 -->
+         <table id="workout-table">
+            <thead>
+                <tr>
+                    <th>운동 이름</th>
+                    <th>세트 수</th>
+                    <th>반복 횟수</th>
+                    <th>시간 (분)</th>
+                </tr>
+            </thead>
+         </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

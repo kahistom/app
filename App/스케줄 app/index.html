@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컬러풀한 스케줄 앱</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            text-align: center;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .calendar {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .day {
+            background: #ffecb3;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .schedule-list {
+            margin-top: 20px;
+            padding: 10px;
+            background: #fff3e0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .add-schedule {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>스케줄 앱</h1>
+    <div class="calendar">
+        <h2>2025년 2월</h2>
+        <div class="days">
+            <div class="day">일</div>
+            <div class="day">월</div>
+            <div class="day">화</div>
+            <div class="day">수</div>
+            <div class="day">목</div>
+            <div class="day">금</div>
+            <div class="day">토</div>
+        </div>
+    </div>
+    <div class="schedule-list">
+        <h3>일정 목록</h3>
+        <ul id="schedule-items">
+            <p>예정된 일정이 없습니다.</p>
+        </ul>
+    </div>
+    <div class="add-schedule">
+        <input type="text" id="schedule-input" placeholder="새 일정 입력">
+        <button onclick="addSchedule()">추가</button>
+    </div>
+    <script>
+        function addSchedule() {
+            const input = document.getElementById('schedule-input');
+            const scheduleList = document.getElementById('schedule-items');
+
+            if (input.value.trim() !== "") {
+                const listItem = document.createElement('li');
+                listItem.textContent = input.value;
+            }
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = "삭제";
+            deleteButton.style.marginLeft = "10px";
+            deleteButton.onclick = function() {
+                scheduleList.removeChild(listItem)
+            };
+
+            listItem.appendchild(deleteButton);
+            scheduleList.appendChild(listItem);
+            input.value = "";
+        }
+    </script>
+</body>
+</html>

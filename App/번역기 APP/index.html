@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 실시간 번역기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        #translatedText {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>🌍 실시간 번역기</h2>
+    <textarea id="inputText" placeholder="번역할 텍스트 입력..."></textarea><br>
+    
+    <select id="targetLang">
+        <option value="en">영어</option>
+        <option value="ko">한국어</option>
+        <option value="ja">일본어</option>
+        <option value="zh-CN">중국어</option>
+        <option value="fr">프랑스어</option>
+    </select>
+    <button onclick="translateText()">번역하기</button>
+    
+    <h3>번역 결과:</h3>
+    <p id="translatedText">여기에 번역된 텍스트가 표시됩니다.</p>
+
+    <script src="script.js"></script>
+</body>
+</html>

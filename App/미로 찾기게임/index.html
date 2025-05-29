@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미로 탈출 게임</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #222;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 4px solid white;
+            display: block;
+            margin: 20px auto;
+            background-color: #87CEEB;
+        }
+    </style>
+</head>
+<body>
+    <h1>미로 탈출 게임</h1>
+    <p>방향키를 사용해 미로를 탈출하세요! (←, →, ↑, ↓)</p>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 400;
+        canvas.height = 400;
+
+        const tileSize = 40;
+        const rows = 10, cols = 10;
+        let maze = [];
+
+        let player = { x: 1, y: 1, size: tileSize * 0.8 };
+        let exit = { x: 8, y: 8 };
+        let monster = { x: 8, y: 1, speed: 500 };
+        let timer = 0;
+        let gameInterval, monsterInterval;
+
+        let keys = {};
+        window.addEventListener("keydown", (e) => keys[e.key] = true);
+        window.addEventListener("keyup", (e) => keys[e.key] = false);
+
+        function generateMaze() {
+            maze = Array(rows).fill().map(() => Array(cols).fill(1));
+            function carve(x, y) {
+                maze[y][x] = 0;
+                let directions = [[0, -2], [0, 2], [-2, 0], [2, 0]].sort(() => Math.random() - 0.5);
+                for (let [dx, dy] of directions) {
+                    let nx = x + dx, ny = y + dy;
+                    if (ny > 0 && ny < rows - 1 && nx > 0 && nx < cols - 1 && maze[ny][nx] === 1) {
+                        maze[y + dy / 2][x + dx / 2] = 0;
+                        carve(nx, ny);
+                    }
+                }
+            }
+            carve(1, 1);
+            maze[exit.y][exit.x] = 0;
+        }
+
+        generateMaze();
+
+        function update() {
+            let newX = player.x, newY = player.y;
+            if (keys["ArrowUp"]) newY--;
+            if (keys["ArrowDown"]) newY++;
+            if (keys["ArrowLeft"]) newX--;
+            if (keys["ArrowRight"]) newX++;
+            if (maze[newY][newX] === 0) {
+                player.x = newX;
+                player.y = newY;
+            }
+            if (player.x === exit.x && player.y === exit.y) {
+                alert(`🎉 탈출 성공! 시간: ${timer}초`);
+                resetGame();
+            }
+        }
+
+        function moveMonster() {
+            let dx = player.x - monster.x, dy = player.y - monster.y;
+            if (Math.abs(dx) > Math.abs(dy)) monster.x += Math.sign(dx);
+            else monster.y += Math.sign(dy);
+            if (player.x === monster.x && player.y === monster.y) {
+                alert("💀 게임 오버! 몬스터에게 잡혔습니다!");
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            clearInterval(gameInterval);
+            clearInterval(monsterInterval);
+            player.x = 1;
+            player.y = 1;
+            monster.x = 8;
+            monster.y = 1;
+            timer = 0;
+            generateMaze();
+            startGame();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    if (maze[row][col] === 1) {
+                        ctx.fillStyle = "black";
+                        ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+                    }
+                }
+            }
+            ctx.fillStyle = "green";
+            ctx.fillRect(exit.x * tileSize, exit.y * tileSize, tileSize, tileSize);
+            ctx.fillStyle = "red";
+            ctx.fillRect(player.x * tileSize + 5, player.y * tileSize + 5, player.size, player.size);
+            ctx.fillStyle = "purple";
+            ctx.fillRect(monster.x * tileSize + 5, monster.y * tileSize + 5, player.size, player.size);
+            ctx.fillStyle = "white";
+            ctx.fillText(`⏳ ${timer}초`, 10, 20);
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            gameInterval = setInterval(() => timer++, 1000);
+            monsterInterval = setInterval(moveMonster, monster.speed);
+            gameLoop();
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

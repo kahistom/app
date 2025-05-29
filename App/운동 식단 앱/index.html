@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운동 식단 관리 앱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>운동 식단 관리</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">홈</a></li>
+                <li><a href="#" onclick="showPage('diet')">식단 기록</a></li>
+                <li><a href="#" onclick="showPage('calories')">칼로리 계산</a></li>
+                <li><a href="#" onclick="showPage('workout')">운동 연동</a></li>
+                <li><a href="#" onclick="showPage('recommend')">추천 식단</a></li>
+                <li><a href="#" onclick="showPage('goal')">목표 설정</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id ="home" class="page active">
+            <h2>운동과 식단을 함께 관리하세요!</h2>
+            <p>건강한 생활을 위한 맞춤형 식단과 운동 계획을 제공합니다.</p>
+            <button onclick="resetData()">데이터 초기화</button>
+        </section>
+
+        <section id="diet" class="page">
+            <h2>식단 기록</h2>
+            <input type="text" id="foodInput" placeholder="음식 입력">
+            <button onclick="addFood()">추가</button>
+            <ul id="foodList"></ul>
+        </section>
+
+        <section id="calories" class="page">
+            <h2>칼로리 계산</h2>
+            <p>총 칼로리: <span id= "totalcalories">0</span>kcal</p>
+
+            <section id="workout" class="page">
+                <h2>운동과 식단 연동</h2>
+                <label for="workoutMinutes">운동 시간 (분): </label>
+                <input type="number" id="workoutMinutes" placeholder="운동 시간 입력">
+                <p>소모한 칼로리: <span id="caloriesBurned">0</span>kcal</p>
+            </section>
+
+            <section id="recommend" class="page">
+                <h2>추천 식단</h2>
+                <button onclick="getComputededDiet()">추천 식단 받기</button>
+                <ul id="recommendedDietList"></ul>
+            </section>
+
+            <section id="goal" class="page">
+                <h2>목표 설정</h2>
+                <input type="text" id="goalInput" placeholder="목표 입력">
+                <button onclick="setGoal()">저장</button>
+                <p>현재 목표: <span id="currentGoal">없음</span></p>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #493598, hsl(208, 36%, 46%));
+            color: white;
+            overflow-y: auto;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 40px 0;
+        }
+
+        .location {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .temp {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .description {
+            font-size: 1.5rem;
+            text-transform: capitalize;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon {
+            width: 100px;
+        }
+
+        .hourly-forecast, .weekly-forecast {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .hour-item, .day-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .hour-item img, .day-item img {
+            width: 50px;
+        }
+
+        .hour-time, .day-name {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="location" id="location">Seoul, Korea</div>
+
+        <div class="description" id="description">Clear Sky</div>
+
+        <div class="details">
+            <div class="detail-item">
+                <span>Humidity</span>
+                <strong id="humidity">45%</strong>
+            </div>
+            <div class="detail-item">
+                <span>Wind</span>
+                <strong id="wind">10 km/h</strong>
+            </div>
+            <div class="detail-item">
+                <span>Feels Like</span>
+                <strong id="feels-like">13°C</strong>
+            </div>
+            <div class="detail-item">
+                <span>PM2.5</span>
+                <strong id="pm25">N/A</strong>
+            </div>
+            <div class="detail-item">
+                <span>PM10</span>
+                <strong id="pm10">N/A</strong>
+            </div>
+        </div>
+
+        <script>
+            const API_KEY = 'YOUR_API_KEY';
+            const lat = 37.5665;
+            const lon = 126.9780;
+
+            async function fetchAirQuality() {
+                try {
+                    const response = await fetch(https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY});
+                    const data = await response.json();
+                    const pm25 = data.list[0].components.pm2_5;
+                    const pm10 = data.list[0].components.pm10;
+
+                    document.getElementById('pm25').textContent = ${pm25} µg/m³;
+                    document.getElementById('pm10').textContent = ${pm10} µg/m³;
+                } catch (error) {
+                    console.error('Error fetching air quality:', error);
+                }
+            }
+
+            fetchAirQuality();
+        </script>
+    </div>
+</body>
+</html>

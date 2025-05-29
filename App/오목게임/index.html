@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오목 게임</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(15, 40px);
+            grid-template-rows: repeat(15, 40px);
+            gap: 2px;
+            background-color: #c68c53;
+            padding: 10px;
+            border: 5px solid #8b5a2b;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            background-color: #e0c9a6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .cell:hover {
+            background-color: #d2b48c;
+        }
+        .black {
+            background-color: black;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+        }
+        .white {
+            background-color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="board" id="board"></div>
+    <script>
+        const board = document.getElementById("board");
+        let currentPlayer = "black";
+        const cells = [];
+        
+        for (let i = 0; i < 15; i++) {
+            cells[i] = [];
+            for (let j = 0; j < 15; j++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.dataset.row = i;
+                cell.dataset.col = j;
+                cell.addEventListener("click", placeStone);
+                board.appendChild(cell);
+                cells[i][j] = null;
+            }
+        }
+        
+        function placeStone(event) {
+            const cell = event.target;
+            const row = cell.dataset.row;
+            const col = cell.dataset.col;
+            if (cells[row][col]) return;
+            
+            const stone = document.createElement("div");
+            stone.classList.add(currentPlayer);
+            cell.appendChild(stone);
+            cells[row][col] = currentPlayer;
+            
+            if (checkWin(row, col, currentPlayer)) {
+                setTimeout(() => alert(currentPlayer + " 승리!"), 100);
+            }
+            
+            currentPlayer = currentPlayer === "black" ? "white" : "black";
+        }
+        
+        function checkWin(row, col, player) {
+            row = parseInt(row);
+            col = parseInt(col);
+            return (
+                countStones(row, col, 1, 0, player) + countStones(row, col, -1, 0, player) >= 4 ||
+                countStones(row, col, 0, 1, player) + countStones(row, col, 0, -1, player) >= 4 ||
+                countStones(row, col, 1, 1, player) + countStones(row, col, -1, -1, player) >= 4 ||
+                countStones(row, col, 1, -1, player) + countStones(row, col, -1, 1, player) >= 4
+            );
+        }
+        
+        function countStones(row, col, rowDir, colDir, player) {
+            let count = 0;
+            for (let i = 1; i < 5; i++) {
+                const newRow = row + i * rowDir;
+                const newCol = col + i * colDir;
+                if (newRow < 0 || newRow >= 15 || newCol < 0 || newCol >= 15 || cells[newRow][newCol] !== player) {
+                    break;
+                }
+                count++;
+            }
+            return count;
+        }
+    </script>
+</body>
+</html>

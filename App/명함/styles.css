@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f4f4;
+    margin: 20px;
+}
+
+.container {
+    width: 350px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.from-container {
+    margin-bottom: 20px;
+}
+
+input, select {
+    display: block;
+    width: 90%;
+    margin: 5px auto;
+    padding: 8px;
+}
+
+button {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/*  클래식 스타일 */
+.style1 {
+    background: white;
+    border: 2px solid #333;
+    color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+/* 모던 스타일 */
+.style2 {
+    background: black;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+/* 컬러플 스타일 */
+.style3 {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+}
